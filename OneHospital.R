@@ -1,0 +1,18 @@
+# This script locates one hospital
+source("DataPreparation.R")
+
+# Calculate column sums
+col.sums <- apply(dataPop, 2, sum)
+locPop <- cbind(col.sums,node=seq(1:1579))
+locPop <- as.data.frame(locPop)
+locPop[1:20,]
+class(locPop$col.sums)
+
+# Find minimum value
+which(locPop$col.sums == min(locPop$col.sums)) 
+locPop[742,]
+
+# Average distance per person
+locPop$col.sums[742]/277725
+
+# Same node as Meng but different distance

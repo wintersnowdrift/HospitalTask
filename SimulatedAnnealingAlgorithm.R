@@ -44,16 +44,15 @@ itShouldPickARandomNeighbour <- function(){
 itShouldPickARandomNeighbour()
 
 energy <- function(s,network,population){
-  #Vector to store minimum distances from population node
-  #to hospital node
-  mindist <- rep(0,nrow(network))
-  
   #Go through every row and find which hosptital
   #that row has a minimum distance to
-  for(i in 1:nrow(network)){
-    mindist[i] <- min(network[i,s])
+  a <- network[,s[1]]
+  for(i in 2:length(s)){
+    a <- pmin(a,network[,s[i]])
   }
   
+  #Minimum distances
+  mindist <- a
   #Minimum distance * population
   mindistpop <- mindist*population
   # standardize for population

@@ -12,5 +12,4 @@ two_sa <- sa(network=data,
           population=pop,
           p=2,
           grannar=1,
-          tmax=10,
-          emax=1000)
+          tmax=10)

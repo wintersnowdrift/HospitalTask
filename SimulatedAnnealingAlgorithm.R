@@ -2,6 +2,11 @@
 sa <- function(network,population,p,grannar,tmax){
   emax <- -Inf #no solutions good enough
   
+  # standardize for population
+  scpop <- 1/sum(population) 
+  # standardize for distance
+  scdist <- 1/mean(as.matrix(network))
+  
   N <- ncol(network)
   
   s <- sample(1:N,p,replace=FALSE) #sample to choose
@@ -14,7 +19,7 @@ sa <- function(network,population,p,grannar,tmax){
     sn <- neighbour(s,N,grannar) #pick a neighbour
     en <- energy(sn,network,population) #cost of neigbour
     
-    if(en<e || runif(1)<P(en-e,t/tmax)){
+    if(en<e || runif(1)<P(scpop*scdist*(en-e),t/tmax)){
       s <- sn
       e <- en
     }
@@ -55,10 +60,6 @@ energy <- function(s,network,population){
   mindist <- a
   #Minimum distance * population
   mindistpop <- mindist*population
-  # standardize for population
-  mindistpop <- mindistpop/sum(population) 
-  # standardize for distance
-  mindistpop <- mindistpop/mean(as.matrix(network)) 
   
   return(sum(mindistpop))
 }
@@ -84,12 +85,12 @@ itShouldPlace2Hospitals <- function(){
   po <- c(10,20,30,10)
   
   two_sa <- sa(network=d,
-               population=pop,
+               population=po,
                p=2,
                grannar=1,
                tmax=100)
-  print(two_sa)
-  print(energy(two_sa,d,po)*mean(as.matrix(d)))
+  #print(two_sa)
+  #print(energy(two_sa,d,po)*mean(as.matrix(d)))
 }
 
 itShouldPlace2Hospitals()

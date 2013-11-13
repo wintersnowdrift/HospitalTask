@@ -4,21 +4,17 @@ randomMethod <- function(network,population,n,p){
   p <- p #number of hospitals to place
   N <- ncol(network) #total number of nodes
   
-  #Vector to store minimum distances from population node
-  #to hospital node
-  mindist <- rep(0,nrow(network))
-  
   #matrix to store results
   storage <- matrix(0,nrow=n,ncol=(p+1)) 
   
   for(i in 1:n){
     samp <- sample(1:N,p,replace=FALSE) #sample
     
-      for(j in 1:nrow(network)){
-      #Go through every row and find which hosptital
-      #that row has a minimum distance to
-      mindist[j] <- min(network[j,samp])
-      }
+    # Find minimum solution
+    mindist <- network[,samp[1]]
+    for(j in 2:length(samp)){
+      mindist <- pmin(mindist,network[,samp[j]])
+    }
     
     #Minimum distance * population
     mindistpop <- mindist*population
@@ -44,8 +40,11 @@ itShouldReturnMinDistance <- function(){
                   
   res <- randomMethod(network=d,population=po,
                       n=10,p=2)
-  #print(res)
+  print(res)
 }
+
+itShouldReturnMinDistance()
+
 
 # Test of 10 nodes
 itShouldReturnMinDistanceOf10 <- function(){
@@ -57,8 +56,6 @@ itShouldReturnMinDistanceOf10 <- function(){
                       n=10,p=10)
   #print(res)
 }
-
-itShouldReturnMinDistance()
 
 itShouldReturnMinDistanceOf10()
 

@@ -8,35 +8,38 @@ source("RandomMethod.R")
 
 # Two hospitals
 set.seed(1000)
-two <- randomMethod(network=data,
-                    population=pop,
-                    n=10,
+two_r <- randomMethod(network=data,
+                    population=po,
+                    n=10000,
                     p=2)
 
 # Three hospitals
-three <- randomMethod(network=data,
-                      population=pop,
+set.seed(1000)
+three_r <- randomMethod(network=data,
+                      population=po,
                       n=10000,
                       p=3)
 
 # Five hospitals
-five <- randomMethod(network=data,
-                     population=pop,
+set.seed(1000)
+five_r <- randomMethod(network=data,
+                     population=po,
                      n=10000,
                      p=5)
 
 # Ten hospitals
-ten <- randomMethod(network=data,
-                    population=pop,
+set.seed(1000)
+ten_r <- randomMethod(network=data,
+                    population=po,
                     n=10000,
                     p=10)
 
-# Table
+# Table with results
 library(plyr)
-comb <- rbind.fill(as.data.frame(t(two)), 
-                   as.data.frame(t(three)), 
-                   as.data.frame(t(five)), 
-                   as.data.frame(t(ten)))
+comb <- rbind.fill(as.data.frame(t(two_r)), 
+                   as.data.frame(t(three_r)), 
+                   as.data.frame(t(five_r)), 
+                   as.data.frame(t(ten_r)))
 colnames(comb) <- c("Distance","Node1", "Node2", "Node3", "Node4", "Node5",
                     "Node6", "Node7", "Node8", "Node9", "Node10")
 

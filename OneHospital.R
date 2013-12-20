@@ -1,24 +1,30 @@
 # This script locates one hospital
-source("DataPreparation.R")
+#source("DataPreparation.R")
 
-# Calculate column sums
-dataPop <- data
-dataPop[1:20,1:5]
-data[1:20,1:5]
-mean(as.matrix(data))
-po[1:5]
-col.sums <- apply(dataPop, 2, sum)
-col.sums[1:5]
-locPop <- cbind(col.sums,node=seq(1:1579))
-locPop <- as.data.frame(locPop)
-locPop[1:20,]
-class(locPop$col.sums)
+oneHospital <- function(network,population)
+{
+  # Calculate column sums
+  dataPop <- network*population
+  col.sums <- apply(dataPop, 2, sum)
+  locPop <- cbind(col.sums,node=seq(1:1579))
+  locPop <- as.data.frame(locPop)
+  
+  # Find minimum value
+  minnode <- which(locPop$col.sums == min(locPop$col.sums)) 
+  
+  #Return soluton
+  return(locPop$col.sums[minnode])
+}
 
-# Find minimum value
-which(locPop$col.sums == min(locPop$col.sums)) 
-locPop[742,]
+itShouldReturnMinDinstanceFor1Hospital <- function()
+{
+  sol <- oneHospital(data,po)
+  #print(sol)
+}
+
+itShouldReturnMinDinstanceFor1Hospital()
 
 # Average distance per person
-(locPop$col.sums[742]/1000)/sum(po)
-
+(oneHospital(data,po)/1000)/sum(po)
 # Same node as Meng but different distance
+

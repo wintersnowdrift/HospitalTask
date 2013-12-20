@@ -1,6 +1,5 @@
 # This scripts find solutions through simulated annealing
 # This scripts finds random solutions
-rm(list=ls())
 source("DataPreparation.R")
 source("SimulatedAnnealingAlgorithm.R")
 
@@ -49,4 +48,8 @@ colnames(comb_sa) <- c("Distance","Node1", "Node2", "Node3", "Node4", "Node5",
                     "Node6", "Node7", "Node8", "Node9", "Node10")
 
 #Table with distance and nodes
+#Distance in km/person
+comb_sa[1] <- comb_sa[1]/1000/sum(po)
+
 comb_sa
+

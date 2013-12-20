@@ -94,7 +94,8 @@ energy <- function(s,network,population){
 P <- function(diffe,rt){
   #P is the probability of doing a "jump" when 
   #en is larger than e
-  fluff <- (1/(1+max(0,diffe))*rt)
+  c <- 10*log(2)
+  fluff <- rt*exp(-diffe*c)
   return(fluff)
 }
 
@@ -123,5 +124,43 @@ itShouldPlace2Hospitals <- function(){
 
 itShouldPlace2Hospitals()
 
+itShouldCalculateEnergy <- function(){
+  d <- data.frame(matrix(c(2,8,5,1,3,7),2,3))
+  po <- c(2,3)
+  s1 <- c(1,2)
+  s2 <- c(1,3)
+  s3 <- c(2,3)
+  
+  en1 <- energy(s1,d,po)
+  stopifnot(en1 == 7)
+  #print(en1)
+  
+  en2 <- energy(s2,d,po)
+  stopifnot(en2 == 25)
+  #print(en2)
+  
+  en3 <- energy(s3,d,po)
+  stopifnot(en3 == 9)
+  #print(en3)
+  
+  en4 <- energy(c(3,2),d,po)
+  stopifnot(en4 == 9)
+  #print(en4)
+}
 
+itShouldCalculateEnergy()
 
+itShouldFindAKnownBestSolution <- function(){
+  d <- data.frame(matrix(c(2,8,5,1,3,7),2,3))
+  po <- c(2,3)
+  
+  two_sa <- sa(network=d,
+               population=po,
+               p=1,
+               grannar=1,
+               tmax=10)
+  print(two_sa)
+  print(energy(two_sa,d,po)*mean(as.matrix(d)))
+}
+
+itShouldFindAKnownBestSolution()

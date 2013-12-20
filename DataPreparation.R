@@ -18,4 +18,5 @@ population <- read.table("//dustaff/home/kss/Documents/Complexity/PascalsProject
 po <- population[2]
 po <- as.numeric(as.character(po[,1]))
 
-rm("pop")
+# Divide data by population
+data <- data/po

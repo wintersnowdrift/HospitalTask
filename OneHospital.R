@@ -2,9 +2,10 @@
 source("DataPreparation.R")
 
 # Calculate column sums
-dataPop <- data*po
+dataPop <- data
 dataPop[1:20,1:5]
 data[1:20,1:5]
+mean(as.matrix(data))
 po[1:5]
 col.sums <- apply(dataPop, 2, sum)
 col.sums[1:5]
